@@ -1,0 +1,6 @@
+{
+    "board": "arduino:avr:mega",
+    "port": "COM8",
+    "sketch": "Hexapod_Kinematik_MultiStep_MASTER_H04_2022OK\\Hexapod_Kinematik_MultiStep_MASTER_H04_2022OK.ino",
+    "configuration": "cpu=atmega2560"
+}
