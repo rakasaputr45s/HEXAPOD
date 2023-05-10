@@ -34,7 +34,7 @@ void teganganBaterai() {
 int oldJR, oldJL;
 void ukurJarak() {
   //int x = millis();
-  float j;
+  float j = 0;
   for (uint8_t i = 0; i < jumlahPing; i++) {
     //for (uint8_t i = 0; i < 1; i++) {
     delay(2);

@@ -65,7 +65,7 @@ void openRunningVariable()
   zAxis     = EEPROM.readFloat(459);
   // spd = 15 - xspd;
   // spdTemp = spd;
-  // Serial.print("xspd ");
+  Serial.print("xspd ");
   // Serial.println(xspd);
   // Serial.print("Ambil spd ");
   // Serial.println(spd);

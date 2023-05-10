@@ -1,17 +1,19 @@
-int update_interval = 1000; // time interval in ms for updating panel indicators
-unsigned long last_time = 0; // time of last update
-char data_in; // data received from serial link
-int slider_value; // Received Slider Values
-String text; // String for text elements
-int progress; // Progress Bar Value
+int update_interval = 1000;     // time interval in ms for updating panel indicators
+unsigned long last_time = 0;    // time of last update
+char data_in;                   // data received from serial link
+int slider_value;               // Received Slider Values
+String text;                    // String for text elements
+int progress;                   // Progress Bar Value
+byte btSt = 0;
+
 
 void testBTSt() {
   if (digitalRead(bluetoothStatusPin) == 1) {
     Serial.println("Bluetooth connected ");
-    btSt = 1;
-    //setupBT();
+    // btSt = 1;
+    // setupBT();
   } else {
-    btSt = 0;
+    // btSt = 0;
     Serial.println("Bluetooth disconnect ");
   }
 }
@@ -21,12 +23,15 @@ void setupBT() {
   String hh = String(lift / 5, 0);
   String nn = String(xspd);
   pinMode(bluetoothStatusPin, INPUT);
-  ///////////// Build panel in app
-  Serial3.println("*.kwl");  delay(10);
-  Serial3.println("clear_panel()");  delay(10);
-  Serial3.println("set_grid_size(18,9)");  delay(10);
-  Serial3.println("add_text(4,0,xlarge,L,HEXAPOD ROBOT CONTROLLER,220,180,220,)");  delay(10);
-
+  // Build panel in app
+  Serial3.println("*.kwl");  
+  delay(10);
+  Serial3.println("clear_panel()");  
+  delay(10);
+  Serial3.println("set_grid_size(18,9)");  
+  delay(10);
+  Serial3.println("add_text(4,0,xlarge,L,HEXAPOD ROBOT CONTROLLER,220,180,220,)");  
+  delay(10);
   Serial3.println("add_text(10,4,large,C,10,200,200,200,n)");  delay(10);
 
   Serial3.println("add_button(10,3,2,u,0)");  delay(10);
@@ -39,15 +44,12 @@ void setupBT() {
   Serial3.println("add_button(14,7,6,x,0)");  delay(10);
   Serial3.println("add_button(15,7,7,o,0)");  delay(10);
   Serial3.println("add_button(16,7,20,c,0)");  delay(10);
-
-  //Serial3.println("add_text(1,1,large,C,10,220,220,220,H)");  delay(10);
+  Serial3.println("add_text(1,1,large,C,10,220,220,220,H)");  delay(10);
   Serial3.println("add_text(1,1,large,C,5,220,220,220,N)");  delay(10);
-
   Serial3.println("add_text(1,6,large,C,Speed,90,180,245,)");  delay(10);
   Serial3.println("add_text(3,6,large,C,G&U,90,180,245,)");  delay(10);
   Serial3.println("add_text(5,6,large,C,GR,90,180,245,)");  delay(10);
   Serial3.println("add_text(7,6,large,C,UD,90,180,245,)");  delay(10);
-
   Serial3.println("add_text(14,1,large,C,STOP,100,200,200,R)");  delay(10);
   Serial3.println("add_text(14,2,large,C,D,200,200,100,D)");  delay(10);
 
@@ -55,12 +57,9 @@ void setupBT() {
 
   Serial3.println("add_text(1,8,medium,C,10,200,200,200,z)");  delay(10);
   Serial3.println("add_text(6,8,medium,C,10,200,200,200,Z)");  delay(10);
-
   Serial3.println("add_gauge(1,7,5,0,100,50,B,,,10,5)");  delay(10);
   Serial3.println("add_led(8,7,1,L,50,50,50)");  delay(10);
   Serial3.println("add_button(10,7,15,K,k)");  delay(10);
-
-  //Serial3.println("add_slider(1,2,4,1,10," + hh + ",h,,0)");  delay(10);
   Serial3.println("add_slider(1,2,4,1,20," + nn + ",n,,0)");  delay(10);
 
   Serial3.println("add_switch(3,3,3,Y,y,0,0)");  delay(10);
@@ -75,12 +74,9 @@ void setupBT() {
   sendToAndroidDevice("N", String(xspd)); delay(10);
   sendToAndroidDevice("H", String(lift, 0)); delay(10);
   sendToAndroidDevice("B", String(50)); delay(10);
-  //BTSt = 1;
+  // BTSt = 1;
 }
 
-//void led() {
-
-//}
 long counter1 = 0;
 long counterDemo = 0;
 void timer() {
@@ -274,7 +270,7 @@ void bluetoothControl() {
           langkah = addStep;
         }
         moveTo(langkah);
-        //sendToAndroidDevice("n", String(langkah)); delay(10);
+        sendToAndroidDevice("n", String(langkah)); delay(10);
         break;
 
       case 'h':
@@ -307,7 +303,6 @@ void bluetoothControl() {
           pushSt = 1;
           sendToAndroidDevice("R", "PAUSE"); delay(10);
           frameRunning();
-          //Oled.clearDisplay();
         }
         break;
       case 'r':
@@ -415,8 +410,6 @@ void bluetoothControl() {
 }
 
 void sendToAndroidDevice(String d, String t) {
-  //String data
   Serial3.print("*" + d + t + "*");
-  //Serial.println("*" + d + t + "*");
   delay(10);
 }

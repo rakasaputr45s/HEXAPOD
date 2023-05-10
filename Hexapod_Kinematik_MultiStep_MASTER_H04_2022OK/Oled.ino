@@ -81,11 +81,9 @@ void timerOled() {
     oldt = t_tunda;
     if (counter < 1000) counter++;
     else counter = 0;
-    if (counter % 10 == 0) {
-      //Serial.print("menuSt ");
-      //Serial.println(menuSt);
-      //Serial.print("runSt ");
-      //Serial.println(runSt);
+    if (counter % 10 == 0) 
+    {
+      //Serial.print("menuSt "); Serial.println(menuSt); Serial.print("runSt "); Serial.println(runSt);
     }
     if (menuSt == 0) {
       if (counter % 5 == 0) framePitStop();

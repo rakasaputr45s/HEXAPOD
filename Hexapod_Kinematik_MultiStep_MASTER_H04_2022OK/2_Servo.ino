@@ -47,7 +47,7 @@ void activeGriper() {
   pinMode(pompaPin, OUTPUT);
   digitalWrite(kipasPin, LOW);
   digitalWrite(pompaPin, HIGH);
-  srv_GR.attach(g1, 600, 2400); srv_GR.write(posGp); delay(tunda);// Gripper 100 tutup, 30 buka
+  srv_GR.attach(g1, 600, 2400); srv_GR.write(60); delay(tunda);// Gripper 100 tutup, 30 buka
   srv_UP.attach(g2, 600, 2400); srv_UP.write(posUd); delay(tunda);// 0 UP  180 Down
 }
 
@@ -55,7 +55,7 @@ void activeGriper() {
 
 void gripperOpen() {
   if (gripperSt == 0) {
-    for (posGp = 15; posGp <= 60; posGp += 1) {
+    for (posGp = 15; posGp <= 80; posGp += 1) {
       srv_GR.write(posGp);
       delay(10);
     }
@@ -66,7 +66,7 @@ void gripperOpen() {
 
 void gripperClose() {
   if (gripperSt == 1) {
-    for (posGp = 60; posGp >= 15; posGp -= 1) {
+    for (posGp = 80; posGp >= 15; posGp -= 1) {
       srv_GR.write(posGp);
       delay(10);
     }
@@ -75,22 +75,18 @@ void gripperClose() {
 }
 
 void angkat() {
-  // for (posUd = 1; posUd <= 180; posUd += 1) {
-  //   srv_UP.write(posUd);
-  //   delay(15);
-  // }
-    srv_UP.write(180);
-    delay(15);
-}
-
-void tarok() {
-  //if (UDSt == 0) {
-  for (posUd = 180; posUd >= 1; posUd -= 1) {
+    for (posUd = 1; posUd <= 90; posUd += 1) {
     srv_UP.write(posUd);
     delay(15);
   }
-  // UDSt = 1;
-  // }
+}
+
+void tarok() 
+{
+  for (posUd = 90; posUd >= 1; posUd -= 1) {
+    srv_UP.write(posUd);
+    delay(15);
+  }
 }
 
 void pompaOn() {
@@ -108,8 +104,6 @@ void kipasOff() {
   digitalWrite(kipasPin, LOW);
 }
 void setupServo(byte x) {
-  //Serial.print ("Test Value AdL[1] ");
-  //Serial.println (Adl1);
   if ((Adl1 > 0) and (Adl1 < 180)) {
     activeServo(x);
     readySt = 1;

@@ -17,11 +17,12 @@ void moveTo(int a)
    CdL[s1[a]] + W1[a], CdR[s2[a]] + W2[a],
    CtL[s3[a]] + W2[a], CtR[s4[a]] + W1[a],
    CbL[s5[a]] + W1[a], CbR[s6[a]] + W2[a], sp);
-  delay(dly);
+   delay(dly);
   if (runSt == 1) numberStep += 1;
   if (runSt == 2) numberStep -= 1;
   runtStepNumber++;
-  if (a == addStep) {   // addStep
+  if (a == addStep) 
+  {
     jumlahLangkah++;
     Serial.print("jumlahLangkah, ");
     Serial.println(jumlahLangkah);
@@ -63,11 +64,11 @@ void geserKiri(byte x) {
   } else {
     langkah = 1;
   }
-  if (x != 0) {
+  if (x != 0) 
+  {
+    jumlahLangkah = 0;
     if (jumlahLangkah < x) moveTo(langkah);
-    else {
-      //jumlahLangkah = 0;
-    }
+
   } else moveTo(langkah);
 }
 
@@ -140,7 +141,7 @@ void majuPID(long x) {
 }
 
 void majuAction(long s, float x, float y, float z, int n) {
-  left = 1; right = 1; yAxis = y; xAxis = x; zAxis = z;
+  left = 1; right = 10; yAxis = y; xAxis = x; zAxis = z;
   if (directionSt != 11) {
     moveToCalculation(1);
     directionSt = 11;
